@@ -46,6 +46,18 @@
                 android:text="@string/dummy_button" />
 
         </LinearLayout>
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="112dp"
+            android:text="Button" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="216dp"
+            android:layout_height="91dp"
+            android:text="Button2" />
     </FrameLayout>
 
 </FrameLayout>
