@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         try {
             //IPアドレスは InetAddress クラスで表現する
             InetAddress inet_address = InetAddress.getByName("192.168.11.255");
+//            InetAddress inet_address = InetAddress.getByName("192.168.3.27");
 
             //UDPデータグラムは DatagramPacket クラスで表現する
             DatagramPacket datagram_packet = new DatagramPacket(data,
