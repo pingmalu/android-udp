@@ -7,10 +7,13 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -23,14 +26,14 @@ import java.net.SocketException;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private DatagramSocket datagramSocket;
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
-//        Button button_send_udp = (Button) this.findViewById(R.id.button3);
-//        button_send_udp.setOnClickListener(this);
+
         try {
             datagramSocket = new DatagramSocket();
             Log.v("bbq", "as");
@@ -38,8 +41,52 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //e.printStackTrace();
             Log.v("SendUdp#onCreate", e.toString());
         }
+
+        setBtnListen((Button) findViewById(R.id.button));
+        setBtnListen((Button) findViewById(R.id.button2));
+        setBtnListen((Button) findViewById(R.id.button3));
+        setBtnListen((Button) findViewById(R.id.button4));
+        setBtnListen((Button) findViewById(R.id.button5));
+        setBtnListen((Button) findViewById(R.id.button6));
+
+        setSwitchListen((Switch) findViewById(R.id.switch1));
+        setSwitchListen((Switch) findViewById(R.id.switch2));
+
     }
 
+    @SuppressLint("ClickableViewAccessibility")
+    public void setBtnListen(final Button btn){
+        btn.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction()==MotionEvent.ACTION_DOWN){
+                    Log.i("kuku",btn.getText()+":1");
+                    send_msg(btn.getText()+":1");
+                }else if(event.getAction()==MotionEvent.ACTION_UP){
+                    Log.i("kuku",btn.getText()+":0");
+                    send_msg(btn.getText()+":0");
+                }
+                return true;
+            }
+        });
+    }
+
+    public void setSwitchListen(final Switch sw){
+        sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    Log.i("kuku",sw.getText()+":1");
+                    send_msg(sw.getText()+":1");
+                }else{
+                    Log.i("kuku",sw.getText()+":0");
+                    send_msg(sw.getText()+":0");
+                }
+            }
+        });
+    }
+
+/*
     public void showwebview() {
         //获得控件
         WebView webView = (WebView) findViewById(R.id.mwebview);
@@ -60,6 +107,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
+*/
 
     private void send_msg(String msg) {
         // 1,创建服务端+端口
@@ -82,7 +130,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         try {
             //IPアドレスは InetAddress クラスで表現する
-            InetAddress inet_address = InetAddress.getByName("192.168.11.255");
+//            InetAddress inet_address = InetAddress.getByName("192.168.11.255");
+            InetAddress inet_address = InetAddress.getByName("192.168.0.255");
 //            InetAddress inet_address = InetAddress.getByName("192.168.3.27");
 
             //UDPデータグラムは DatagramPacket クラスで表現する
@@ -101,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             datagramSocket.send(datagram_packet);
         } catch (IOException io_exception) {
             //問題が起きたら例外を捉えてログに出力
-            Log.v("SensorUdp#", io_exception.toString());
+            Log.v("kuku", io_exception.toString());
         }
     }
 
@@ -109,7 +158,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button b = (Button) view;
         String text = b.getText().toString();
         this.show(text);
-        this.send_msg(text);
+//        this.send_msg(text);
         switch (text) {
             case "left":
                 this.show("左触发");

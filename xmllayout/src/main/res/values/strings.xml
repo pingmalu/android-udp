@@ -1,10 +1,11 @@
 <resources>
     <string name="app_name">controller</string>
-    <string name="button">Button</string>
-    <string name="button3">Button3</string>
-    <string name="button2">Button2</string>
-    <string name="button4">Button4</string>
-    <string name="button5">off</string>
-    <string name="button6">on</string>
-    <string name="switch1">Switch</string>
+    <string name="button">LEFT</string>
+    <string name="button2">UP</string>
+    <string name="button3">DOWN</string>
+    <string name="button4">RIGHT</string>
+    <string name="button5">A</string>
+    <string name="button6">B</string>
+    <string name="switch1">S1</string>
+    <string name="switch2">S2</string>
 </resources>
