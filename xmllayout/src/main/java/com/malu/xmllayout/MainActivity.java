@@ -3,8 +3,11 @@ package com.malu.xmllayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.telecom.Call;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -14,6 +17,7 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -52,35 +56,45 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setSwitchListen((Switch) findViewById(R.id.switch1));
         setSwitchListen((Switch) findViewById(R.id.switch2));
 
+        TextView tv = findViewById(R.id.textView);
+        tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("kuku", "texton");
+                Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    public void setBtnListen(final Button btn){
+    public void setBtnListen(final Button btn) {
         btn.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction()==MotionEvent.ACTION_DOWN){
-                    Log.i("kuku",btn.getText()+":1");
-                    send_msg(btn.getText()+":1");
-                }else if(event.getAction()==MotionEvent.ACTION_UP){
-                    Log.i("kuku",btn.getText()+":0");
-                    send_msg(btn.getText()+":0");
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    Log.i("kuku", btn.getText() + ":1");
+                    send_msg(btn.getText() + ":1");
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    Log.i("kuku", btn.getText() + ":0");
+                    send_msg(btn.getText() + ":0");
                 }
                 return true;
             }
         });
     }
 
-    public void setSwitchListen(final Switch sw){
+    public void setSwitchListen(final Switch sw) {
         sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    Log.i("kuku",sw.getText()+":1");
-                    send_msg(sw.getText()+":1");
-                }else{
-                    Log.i("kuku",sw.getText()+":0");
-                    send_msg(sw.getText()+":0");
+                if (isChecked) {
+                    Log.i("kuku", sw.getText() + ":1");
+                    send_msg(sw.getText() + ":1");
+                } else {
+                    Log.i("kuku", sw.getText() + ":0");
+                    send_msg(sw.getText() + ":0");
                 }
             }
         });
@@ -127,11 +141,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // 5,关闭资源
 //        datagramSocket.close();
 
+        final SharedPreferences sp = getSharedPreferences("malu", MODE_PRIVATE);
+        String ipadd_str = sp.getString("malu", null);
 
         try {
             //IPアドレスは InetAddress クラスで表現する
 //            InetAddress inet_address = InetAddress.getByName("192.168.11.255");
-            InetAddress inet_address = InetAddress.getByName("192.168.0.255");
+            InetAddress inet_address = InetAddress.getByName(ipadd_str);
 //            InetAddress inet_address = InetAddress.getByName("192.168.3.27");
 
             //UDPデータグラムは DatagramPacket クラスで表現する

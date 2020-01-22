@@ -92,4 +92,15 @@
         app:layout_constraintTop_toBottomOf="@+id/switch1"
         tools:ignore="MissingConstraints" />
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="420dp"
+        android:rotation="90"
+        android:text="@string/title_activity_settings"
+        app:layout_constraintStart_toStartOf="@+id/switch1"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
