@@ -10,6 +10,8 @@ import android.os.StrictMode;
 import android.telecom.Call;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.InputDevice;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebView;
@@ -29,6 +31,8 @@ import java.net.SocketException;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private DatagramSocket datagramSocket;
+    public boolean S1 = false;
+    public boolean S2 = false;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -99,6 +103,169 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
+
+    @Override
+    public boolean onKeyDown(int buttonPress, KeyEvent event) {
+        Log.i("kuku", buttonPress + "");
+        show(buttonPress + "");
+        boolean handled = true;
+        switch (buttonPress) {
+            case KeyEvent.KEYCODE_DPAD_UP:
+                send_msg("UP:1");
+                break;
+            case KeyEvent.KEYCODE_DPAD_DOWN:
+                send_msg("DOWN:1");
+                break;
+            case KeyEvent.KEYCODE_DPAD_LEFT:
+                send_msg("LEFT:1");
+                break;
+            case KeyEvent.KEYCODE_DPAD_RIGHT:
+                send_msg("RIGHT:1");
+                break;
+            case KeyEvent.KEYCODE_BUTTON_X:
+                send_msg("A:1");
+                break;
+            case KeyEvent.KEYCODE_BUTTON_B:
+                send_msg("B:1");
+                break;
+            case KeyEvent.KEYCODE_BUTTON_L1:
+                S1 = !S1;
+                if (S1) {
+                    send_msg("S1:1");
+                } else {
+                    send_msg("S1:0");
+                }
+                break;
+            case KeyEvent.KEYCODE_BUTTON_R1:
+                S2 = !S2;
+                if (S2) {
+                    send_msg("S2:1");
+                } else {
+                    send_msg("S2:0");
+                }
+                break;
+            default:
+                handled = false;
+        }
+        return false;
+//        return super.onKeyDown(buttonPress, event);
+    }
+
+    @Override
+    public boolean onKeyUp(int buttonPress, KeyEvent event) {
+        Log.i("kuku", buttonPress + "");
+        show(buttonPress + "-up");
+        boolean handled = true;
+        switch (buttonPress) {
+            case KeyEvent.KEYCODE_DPAD_UP:
+                send_msg("UP:0");
+                break;
+            case KeyEvent.KEYCODE_DPAD_DOWN:
+                send_msg("DOWN:0");
+                break;
+            case KeyEvent.KEYCODE_DPAD_LEFT:
+                send_msg("LEFT:0");
+                break;
+            case KeyEvent.KEYCODE_DPAD_RIGHT:
+                send_msg("RIGHT:0");
+                break;
+            case KeyEvent.KEYCODE_BUTTON_X:
+                send_msg("A:0");
+                break;
+            case KeyEvent.KEYCODE_BUTTON_B:
+                send_msg("B:0");
+                break;
+            default:
+                handled = false;
+        }
+        return false;
+//        return super.onKeyUp(buttonPress, event);
+    }
+
+/*    @Override
+    public boolean onGenericMotionEvent(MotionEvent event) {
+
+        // Check that the event came from a game controller
+        if ((event.getSource() & InputDevice.SOURCE_JOYSTICK) ==
+                InputDevice.SOURCE_JOYSTICK &&
+                event.getAction() == MotionEvent.ACTION_MOVE) {
+
+            // Process all historical movement samples in the batch
+            final int historySize = event.getHistorySize();
+
+            // Process the movements starting from the
+            // earliest historical position in the batch
+            for (int i = 0; i < historySize; i++) {
+                // Process the event at historical position i
+                processJoystickInput(event, i);
+            }
+
+            // Process the current movement sample in the batch (position -1)
+            processJoystickInput(event, -1);
+            return true;
+        }
+        return super.onGenericMotionEvent(event);
+    }
+
+    private static float getCenteredAxis(MotionEvent event,
+                                         InputDevice device, int axis, int historyPos) {
+        final InputDevice.MotionRange range =
+                device.getMotionRange(axis, event.getSource());
+
+        // A joystick at rest does not always report an absolute position of
+        // (0,0). Use the getFlat() method to determine the range of values
+        // bounding the joystick axis center.
+        if (range != null) {
+            final float flat = range.getFlat();
+            final float value =
+                    historyPos < 0 ? event.getAxisValue(axis) :
+                            event.getHistoricalAxisValue(axis, historyPos);
+
+            // Ignore axis values that are within the 'flat' region of the
+            // joystick axis center.
+            if (Math.abs(value) > flat) {
+                return value;
+            }
+        }
+        return 0;
+    }
+
+    private void processJoystickInput(MotionEvent event,
+                                      int historyPos) {
+
+        InputDevice inputDevice = event.getDevice();
+
+        // Calculate the horizontal distance to move by
+        // using the input value from one of these physical controls:
+        // the left control stick, hat axis, or the right control stick.
+        float x = getCenteredAxis(event, inputDevice,
+                MotionEvent.AXIS_X, historyPos);
+        if (x == 0) {
+            x = getCenteredAxis(event, inputDevice,
+                    MotionEvent.AXIS_HAT_X, historyPos);
+        }
+        if (x == 0) {
+            x = getCenteredAxis(event, inputDevice,
+                    MotionEvent.AXIS_Z, historyPos);
+        }
+
+        // Calculate the vertical distance to move by
+        // using the input value from one of these physical controls:
+        // the left control stick, hat switch, or the right control stick.
+        float y = getCenteredAxis(event, inputDevice,
+                MotionEvent.AXIS_Y, historyPos);
+        if (y == 0) {
+            y = getCenteredAxis(event, inputDevice,
+                    MotionEvent.AXIS_HAT_Y, historyPos);
+        }
+        if (y == 0) {
+            y = getCenteredAxis(event, inputDevice,
+                    MotionEvent.AXIS_RZ, historyPos);
+        }
+
+        // Update the ship object based on the new x and y values
+        show("x:"+x+" y:"+y,0,200);
+    }*/
 
 /*
     public void showwebview() {
