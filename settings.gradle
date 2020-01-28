@@ -1,2 +1,2 @@
-include ':app', ':xmllayout'
+include ':xmllayout'
 rootProject.name='udpcontroller'
