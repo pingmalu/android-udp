@@ -147,13 +147,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             default:
                 handled = false;
         }
-        return false;
+        return true;
 //        return super.onKeyDown(buttonPress, event);
     }
 
     @Override
     public boolean onKeyUp(int buttonPress, KeyEvent event) {
-        Log.i("kuku", buttonPress + "");
+        Log.i("kuku", buttonPress + "up");
         show(buttonPress + "-up");
         boolean handled = true;
         switch (buttonPress) {
@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             default:
                 handled = false;
         }
-        return false;
+        return true;
 //        return super.onKeyUp(buttonPress, event);
     }
 
