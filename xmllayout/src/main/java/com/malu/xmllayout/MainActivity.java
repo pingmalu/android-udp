@@ -33,6 +33,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private DatagramSocket datagramSocket;
     public boolean S1 = false;
     public boolean S2 = false;
+    public boolean isOnLongClick = false;
+    PlusThread plusThread;
+    public boolean UPING = false;
+    public boolean DOWNING = false;
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -78,15 +82,65 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    plusThread = new PlusThread(btn.getText().toString());
+                    isOnLongClick = true;
+                    plusThread.start();
+                    if (btn.getText().toString().equals("UP")) {
+                        UPING = true;
+                    } else if (btn.getText().toString().equals("DOWN")) {
+                        DOWNING = true;
+                    }
                     Log.i("kuku", btn.getText() + ":1");
-                    send_msg(btn.getText() + ":1");
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    Log.i("kuku", btn.getText() + ":0");
                     send_msg(btn.getText() + ":0");
+                    if (btn.getText().toString().equals("UP")) {
+                        UPING = false;
+                    } else if (btn.getText().toString().equals("DOWN")) {
+                        DOWNING = false;
+                    }
+                    if (plusThread != null) {
+                        isOnLongClick = false;
+                    }
+//                    if (UPING) {
+//                        plusThread = new PlusThread("UP");
+//                        isOnLongClick = true;
+//                        plusThread.start();
+//                    }
+//                    if (DOWNING) {
+//                        plusThread = new PlusThread("DOWN");
+//                        isOnLongClick = true;
+//                        plusThread.start();
+//                    }
+                    Log.i("kuku", btn.getText() + ":0");
                 }
+//                else if (event.getAction() == MotionEvent.ACTION_MOVE) {
+//                    Log.i("kuku", btn.getText() + ":1");
+//                }
                 return true;
             }
         });
+    }
+
+    class PlusThread extends Thread {
+
+        private String name;
+
+        PlusThread(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public void run() {
+            while (isOnLongClick) {
+                try {
+                    send_msg(name + ":1");
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+                }
+                super.run();
+            }
+        }
     }
 
     public void setSwitchListen(final Switch sw) {
@@ -327,10 +381,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //datagramSocket.close();
                 datagramSocket = null;
                 datagramSocket = new DatagramSocket();
+                datagramSocket.send(datagram_packet);
             }
             //DatagramSocket は DatagramPacket を渡されると
             //指定された宛先アドレスに UDP データグラムとして送出する。
-            datagramSocket.send(datagram_packet);
         } catch (IOException io_exception) {
             //問題が起きたら例外を捉えてログに出力
             Log.v("kuku", io_exception.toString());
