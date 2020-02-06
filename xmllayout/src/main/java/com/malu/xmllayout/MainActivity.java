@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     PlusThread plusThread;
     public boolean UPING = false;
     public boolean DOWNING = false;
+    public String IP = "";
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -45,6 +46,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
+
+        // 获取远程ip配置
+        final SharedPreferences sp = getSharedPreferences("malu", MODE_PRIVATE);
+        IP = sp.getString("malu", null);
 
         try {
             datagramSocket = new DatagramSocket();
@@ -362,14 +367,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // 5,关闭资源
 //        datagramSocket.close();
 
-        final SharedPreferences sp = getSharedPreferences("malu", MODE_PRIVATE);
-        String ipadd_str = sp.getString("malu", null);
 
         try {
             //IPアドレスは InetAddress クラスで表現する
-//            InetAddress inet_address = InetAddress.getByName("192.168.11.255");
-            InetAddress inet_address = InetAddress.getByName(ipadd_str);
-//            InetAddress inet_address = InetAddress.getByName("192.168.3.27");
+            InetAddress inet_address = InetAddress.getByName(IP);
 
             //UDPデータグラムは DatagramPacket クラスで表現する
             DatagramPacket datagram_packet = new DatagramPacket(data,
