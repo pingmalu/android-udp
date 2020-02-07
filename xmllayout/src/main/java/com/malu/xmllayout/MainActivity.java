@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     PlusThread plusThread;
     public boolean isOnLongClick_lr = false;
     LrThread lrThread;
-    public boolean UPDOWNING = false;
     public String IP = "";
 
     @SuppressLint("ClickableViewAccessibility")
@@ -94,7 +93,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             plusThread.start();
                             isOnLongClick = true;
                         }
-                        UPDOWNING = true;
                     } else {
                         if (!isOnLongClick_lr) {
                             lrThread = new LrThread(btn_name);
@@ -105,7 +103,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Log.i("kuku", btn_name + ":1");
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     if (btn_name.equals("UP") || btn_name.equals("DOWN")) {
-                        UPDOWNING = false;
                         isOnLongClick = false;
                     } else {
                         isOnLongClick_lr = false;
@@ -190,24 +187,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.i("kuku", buttonPress + "");
 //        show(buttonPress + "");
         boolean handled = true;
+        String btn_name = "";
         switch (buttonPress) {
             case KeyEvent.KEYCODE_DPAD_UP:
-                send_msg("UP:1");
+                btn_name = "UP";
                 break;
             case KeyEvent.KEYCODE_DPAD_DOWN:
-                send_msg("DOWN:1");
+                btn_name = "DOWN";
                 break;
             case KeyEvent.KEYCODE_DPAD_LEFT:
-                send_msg("LEFT:1");
+                btn_name = "LEFT";
                 break;
             case KeyEvent.KEYCODE_DPAD_RIGHT:
-                send_msg("RIGHT:1");
+                btn_name = "RIGHT";
                 break;
             case KeyEvent.KEYCODE_BUTTON_X:
-                send_msg("A:1");
+                btn_name = "A";
                 break;
             case KeyEvent.KEYCODE_BUTTON_B:
-                send_msg("B:1");
+                btn_name = "B";
                 break;
             case KeyEvent.KEYCODE_BUTTON_A:
                 S1 = !S1;
@@ -216,7 +214,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } else {
                     send_msg("S1:0");
                 }
-                break;
+                return handled;
             case KeyEvent.KEYCODE_BUTTON_Y:
                 S2 = !S2;
                 if (S2) {
@@ -224,42 +222,61 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 } else {
                     send_msg("S2:0");
                 }
-                break;
+                return handled;
             default:
-                handled = false;
+                return handled;
         }
-        return true;
+        if (btn_name.equals("UP") || btn_name.equals("DOWN")) {
+            if (!isOnLongClick) {
+                plusThread = new PlusThread(btn_name);
+                plusThread.start();
+                isOnLongClick = true;
+            }
+        } else {
+            if (!isOnLongClick_lr) {
+                lrThread = new LrThread(btn_name);
+                lrThread.start();
+                isOnLongClick_lr = true;
+            }
+        }
+        return handled;
 //        return super.onKeyDown(buttonPress, event);
     }
 
     @Override
     public boolean onKeyUp(int buttonPress, KeyEvent event) {
         Log.i("kuku", buttonPress + "up");
-//        show(buttonPress + "-up");
         boolean handled = true;
+        String btn_name = "";
         switch (buttonPress) {
             case KeyEvent.KEYCODE_DPAD_UP:
-                send_msg("UP:0");
+                btn_name = "UP";
                 break;
             case KeyEvent.KEYCODE_DPAD_DOWN:
-                send_msg("DOWN:0");
+                btn_name = "DOWN";
                 break;
             case KeyEvent.KEYCODE_DPAD_LEFT:
-                send_msg("LEFT:0");
+                btn_name = "LEFT";
                 break;
             case KeyEvent.KEYCODE_DPAD_RIGHT:
-                send_msg("RIGHT:0");
+                btn_name = "RIGHT";
                 break;
             case KeyEvent.KEYCODE_BUTTON_X:
-                send_msg("A:0");
+                btn_name = "A";
                 break;
             case KeyEvent.KEYCODE_BUTTON_B:
-                send_msg("B:0");
+                btn_name = "B";
                 break;
             default:
-                handled = false;
+                return handled;
         }
-        return true;
+        if (btn_name.equals("UP") || btn_name.equals("DOWN")) {
+            isOnLongClick = false;
+        } else {
+            isOnLongClick_lr = false;
+        }
+        send_msg(btn_name + ":0");
+        return handled;
 //        return super.onKeyUp(buttonPress, event);
     }
 
