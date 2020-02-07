@@ -35,8 +35,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean S2 = false;
     public boolean isOnLongClick = false;
     PlusThread plusThread;
-    public boolean UPING = false;
-    public boolean DOWNING = false;
+    public boolean isOnLongClick_lr = false;
+    LrThread lrThread;
+    public boolean UPDOWNING = false;
     public String IP = "";
 
     @SuppressLint("ClickableViewAccessibility")
@@ -85,37 +86,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+                String btn_name = btn.getText().toString();
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    plusThread = new PlusThread(btn.getText().toString());
-                    isOnLongClick = true;
-                    plusThread.start();
-                    if (btn.getText().toString().equals("UP")) {
-                        UPING = true;
-                    } else if (btn.getText().toString().equals("DOWN")) {
-                        DOWNING = true;
+                    if (btn_name.equals("UP") || btn_name.equals("DOWN")) {
+                        if (!isOnLongClick) {
+                            plusThread = new PlusThread(btn_name);
+                            plusThread.start();
+                            isOnLongClick = true;
+                        }
+                        UPDOWNING = true;
+                    } else {
+                        if (!isOnLongClick_lr) {
+                            lrThread = new LrThread(btn_name);
+                            lrThread.start();
+                            isOnLongClick_lr = true;
+                        }
                     }
-                    Log.i("kuku", btn.getText() + ":1");
+                    Log.i("kuku", btn_name + ":1");
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    send_msg(btn.getText() + ":0");
-                    if (btn.getText().toString().equals("UP")) {
-                        UPING = false;
-                    } else if (btn.getText().toString().equals("DOWN")) {
-                        DOWNING = false;
-                    }
-                    if (plusThread != null) {
+                    if (btn_name.equals("UP") || btn_name.equals("DOWN")) {
+                        UPDOWNING = false;
                         isOnLongClick = false;
+                    } else {
+                        isOnLongClick_lr = false;
                     }
-//                    if (UPING) {
-//                        plusThread = new PlusThread("UP");
-//                        isOnLongClick = true;
-//                        plusThread.start();
+//                    if (plusThread != null) {
+//                        isOnLongClick = false;
 //                    }
-//                    if (DOWNING) {
-//                        plusThread = new PlusThread("DOWN");
-//                        isOnLongClick = true;
-//                        plusThread.start();
-//                    }
-                    Log.i("kuku", btn.getText() + ":0");
+                    send_msg(btn_name + ":0");
+                    Log.i("kuku", btn_name + ":0");
                 }
 //                else if (event.getAction() == MotionEvent.ACTION_MOVE) {
 //                    Log.i("kuku", btn.getText() + ":1");
@@ -125,6 +124,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
+    // 上下线程
     class PlusThread extends Thread {
 
         private String name;
@@ -136,6 +136,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         @Override
         public void run() {
             while (isOnLongClick) {
+                try {
+                    send_msg(name + ":1");
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+                }
+                super.run();
+            }
+        }
+    }
+
+    // 左右线程
+    class LrThread extends Thread {
+
+        private String name;
+
+        LrThread(String name) {
+            this.name = name;
+        }
+
+        @Override
+        public void run() {
+            while (isOnLongClick_lr) {
                 try {
                     send_msg(name + ":1");
                     Thread.sleep(200);
