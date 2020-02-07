@@ -189,15 +189,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         boolean handled = true;
         String btn_name = "";
         switch (buttonPress) {
+            case 106:
+            case 98:
             case KeyEvent.KEYCODE_DPAD_UP:
                 btn_name = "UP";
                 break;
+            case 107:
             case KeyEvent.KEYCODE_DPAD_DOWN:
                 btn_name = "DOWN";
                 break;
+            case 188:
             case KeyEvent.KEYCODE_DPAD_LEFT:
                 btn_name = "LEFT";
                 break;
+            case 189:
             case KeyEvent.KEYCODE_DPAD_RIGHT:
                 btn_name = "RIGHT";
                 break;
@@ -207,6 +212,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case KeyEvent.KEYCODE_BUTTON_B:
                 btn_name = "B";
                 break;
+            case 25:
             case KeyEvent.KEYCODE_BUTTON_A:
                 S1 = !S1;
                 if (S1) {
@@ -215,6 +221,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     send_msg("S1:0");
                 }
                 return handled;
+            case 24:
             case KeyEvent.KEYCODE_BUTTON_Y:
                 S2 = !S2;
                 if (S2) {
@@ -249,15 +256,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         boolean handled = true;
         String btn_name = "";
         switch (buttonPress) {
+            case 106:
+            case 98:
             case KeyEvent.KEYCODE_DPAD_UP:
                 btn_name = "UP";
                 break;
+            case 107:
             case KeyEvent.KEYCODE_DPAD_DOWN:
                 btn_name = "DOWN";
                 break;
+            case 188:
             case KeyEvent.KEYCODE_DPAD_LEFT:
                 btn_name = "LEFT";
                 break;
+            case 189:
             case KeyEvent.KEYCODE_DPAD_RIGHT:
                 btn_name = "RIGHT";
                 break;
