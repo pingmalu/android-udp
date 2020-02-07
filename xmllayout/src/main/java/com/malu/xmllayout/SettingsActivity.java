@@ -1,5 +1,6 @@
 package com.malu.xmllayout;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -30,8 +31,8 @@ public class SettingsActivity extends AppCompatActivity {
         final EditText ipadd = findViewById(R.id.editText);
 //        Log.i("kuku",ipadd.getText().toString());
 
-        final SharedPreferences sp = getSharedPreferences("malu",MODE_PRIVATE);
-        String ipadd_str = sp.getString("malu",null);
+        final SharedPreferences sp = getSharedPreferences("malu", MODE_PRIVATE);
+        String ipadd_str = sp.getString("malu", null);
         ipadd.setText(ipadd_str);
 
         Button bt = findViewById(R.id.button7);
@@ -39,8 +40,12 @@ public class SettingsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 SharedPreferences.Editor editor = sp.edit();
-                editor.putString("malu",ipadd.getText().toString());
-                editor.commit();
+                editor.putString("malu", ipadd.getText().toString());
+                editor.apply();
+                // 传值
+                Intent intent = new Intent(SettingsActivity.this, MainActivity.class);
+//                intent.putExtra("MainActivity", ipadd.getText().toString());
+                startActivity(intent);
                 finish();
             }
         });

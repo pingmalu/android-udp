@@ -53,10 +53,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         try {
             datagramSocket = new DatagramSocket();
-            Log.v("bbq", "as");
         } catch (SocketException e) {
             //e.printStackTrace();
-            Log.v("SendUdp#onCreate", e.toString());
+            Log.v("kuku", e.toString());
         }
 
         setBtnListen((Button) findViewById(R.id.button));
@@ -73,9 +72,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("kuku", "texton");
                 Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -166,7 +165,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onKeyDown(int buttonPress, KeyEvent event) {
         Log.i("kuku", buttonPress + "");
-        show(buttonPress + "");
+//        show(buttonPress + "");
         boolean handled = true;
         switch (buttonPress) {
             case KeyEvent.KEYCODE_DPAD_UP:
@@ -187,7 +186,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case KeyEvent.KEYCODE_BUTTON_B:
                 send_msg("B:1");
                 break;
-            case KeyEvent.KEYCODE_BUTTON_L1:
+            case KeyEvent.KEYCODE_BUTTON_A:
                 S1 = !S1;
                 if (S1) {
                     send_msg("S1:1");
@@ -195,7 +194,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     send_msg("S1:0");
                 }
                 break;
-            case KeyEvent.KEYCODE_BUTTON_R1:
+            case KeyEvent.KEYCODE_BUTTON_Y:
                 S2 = !S2;
                 if (S2) {
                     send_msg("S2:1");
@@ -213,7 +212,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onKeyUp(int buttonPress, KeyEvent event) {
         Log.i("kuku", buttonPress + "up");
-        show(buttonPress + "-up");
+//        show(buttonPress + "-up");
         boolean handled = true;
         switch (buttonPress) {
             case KeyEvent.KEYCODE_DPAD_UP:
