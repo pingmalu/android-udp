@@ -19,5 +19,22 @@
         android:layout_height="wrap_content"
         android:text="@string/save" />
 
+    <TextView
+        android:id="@+id/nametextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/iptextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 
 </LinearLayout>
