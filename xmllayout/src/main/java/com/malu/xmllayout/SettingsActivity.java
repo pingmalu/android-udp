@@ -7,6 +7,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +28,7 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Locale;
 
@@ -35,6 +37,9 @@ public class SettingsActivity extends AppCompatActivity {
     private TextView nameTextView = null;
     private NetworkInfo mActiveNetInfo = null;
     private ConnectivityManager mConnectivityManager = null;
+    private ListView mylistview;
+    private ArrayList<String> list = new ArrayList<>();
+    private String myIpaddress = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,17 +83,19 @@ public class SettingsActivity extends AppCompatActivity {
 
         mConnectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);//获取系统的连接服务
         mActiveNetInfo = mConnectivityManager.getActiveNetworkInfo();//获取网络连接的信息
-        if (mActiveNetInfo != null)
+        myIpaddress = getIPAddress();
+        if (mActiveNetInfo != null && !myIpaddress.equals("")) {
             setUpInfo();
+            Log.i("kuku", myIpaddress);
+            discover(getIPAddress());
+            readArp();
+            init();
+        }
 
-        Log.i("kuku", getIPAddress());
-        discover(getIPAddress());
-        readArp();
 
-        init();
     }
 
-    private String[] data = new String[0];
+//    private String[] data = new String[0];
 
     //往字符串数组追加新数据
     private static String[] insert(String[] arr, String str) {
@@ -107,8 +114,25 @@ public class SettingsActivity extends AppCompatActivity {
      */
     private void init() {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(
-                SettingsActivity.this, android.R.layout.simple_list_item_1, data);
-        ((ListView) findViewById(R.id.list)).setAdapter(adapter);
+                SettingsActivity.this, android.R.layout.simple_list_item_1, list);
+        mylistview = findViewById(R.id.list);
+        mylistview.setAdapter(adapter);
+
+        mylistview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+                                    long arg3) {
+                // TODO Auto-generated method stub
+//                if(list.get(arg2).equals("LinearLayout"))
+//                {
+//                    Intent intent = new Intent("com.wps.android.LINEARLAYOUT");
+//                    startActivity(intent);
+//                }
+                Log.i("kuku", list.get(arg2));
+            }
+
+        });
     }
 
     public void setUpInfo() {
@@ -229,6 +253,7 @@ public class SettingsActivity extends AppCompatActivity {
         try {
             BufferedReader br = new BufferedReader(
                     new FileReader("/proc/net/arp"));
+            String last_str = "";
             String line = "";
             String ip = "";
             String flag = "";
@@ -242,9 +267,14 @@ public class SettingsActivity extends AppCompatActivity {
                     flag = line.substring(29, 32).trim();
                     mac = line.substring(41, 63).trim();
                     if (mac.contains("00:00:00:00:00:00")) continue;
-                    Log.e("kuku", "readArp: mac= " + mac + " ; ip= " + ip + " ;flag= " + flag);
                     //执行数据添加
-                    data = insert(data, mac + " " + ip);
+                    String isesp = "";
+                    if (mac.contains("2C:F4:32:14:78:76")) isesp = " 小方车 |";
+                    if (mac.contains("2C:F4:32:14:78:76")) isesp = " 小方车 |";
+                    last_str = mac + " |" + ip + "|" + isesp;
+                    list.add(last_str);
+//                    data = insert(data, last_str);
+//                    Log.e("kuku", "readArp: mac= " + mac + " ; ip= " + ip + " ;flag= " + flag + isesp);
                 } catch (Exception e) {
                 }
             }

@@ -96,11 +96,10 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="420dp"
+        android:layout_marginTop="432dp"
         android:rotation="90"
         android:text="@string/title_activity_settings"
-        app:layout_constraintStart_toStartOf="@+id/switch1"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
