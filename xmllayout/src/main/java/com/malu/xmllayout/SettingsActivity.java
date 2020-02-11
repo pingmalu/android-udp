@@ -130,6 +130,8 @@ public class SettingsActivity extends AppCompatActivity {
 //                    startActivity(intent);
 //                }
                 Log.i("kuku", list.get(arg2));
+                String[] split1 = list.get(arg2).split("|");
+
             }
 
         });
@@ -270,7 +272,7 @@ public class SettingsActivity extends AppCompatActivity {
                     //执行数据添加
                     String isesp = "";
                     if (mac.contains("2C:F4:32:14:78:76")) isesp = " 小方车 |";
-                    if (mac.contains("2C:F4:32:14:78:76")) isesp = " 小方车 |";
+                    if (mac.contains("02:15:b2:00:01:00")) isesp = " 坦克 |";
                     last_str = mac + " |" + ip + "|" + isesp;
                     list.add(last_str);
 //                    data = insert(data, last_str);
