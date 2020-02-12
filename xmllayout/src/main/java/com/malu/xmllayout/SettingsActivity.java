@@ -82,6 +82,20 @@ public class SettingsActivity extends AppCompatActivity {
         nameTextView = findViewById(R.id.nametextView);
         ipTextView = findViewById(R.id.iptextView);
 
+        ipTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String[] ips = ipTextView.getText().toString().split("：");
+                String ips_head = ips[1];
+                String[] ips2 = ips_head.split("\\.");
+                String boardip = ips2[0]+"."+ips2[1]+"."+ips2[2]+".255";
+
+                Log.i("kuku",boardip);
+                ipadd.setText(boardip);
+            }
+        });
+
         mConnectivityManager = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);//获取系统的连接服务
         mActiveNetInfo = mConnectivityManager.getActiveNetworkInfo();//获取网络连接的信息
         myIpaddress = getIPAddress();
