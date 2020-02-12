@@ -29,6 +29,7 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.Locale;
 
@@ -130,7 +131,11 @@ public class SettingsActivity extends AppCompatActivity {
 //                    startActivity(intent);
 //                }
                 Log.i("kuku", list.get(arg2));
-                String[] split1 = list.get(arg2).split("|");
+                String[] split1 = list.get(arg2).split(" \\| ");
+//                Log.i("kuku", split1[1]);
+//                Log.i("kuku", Arrays.toString(split1));
+                final EditText ipadd = findViewById(R.id.editText);
+                ipadd.setText(split1[1]);
 
             }
 
@@ -271,9 +276,9 @@ public class SettingsActivity extends AppCompatActivity {
                     if (mac.contains("00:00:00:00:00:00")) continue;
                     //执行数据添加
                     String isesp = "";
-                    if (mac.contains("2C:F4:32:14:78:76")) isesp = " 小方车 |";
-                    if (mac.contains("02:15:b2:00:01:00")) isesp = " 坦克 |";
-                    last_str = mac + " |" + ip + "|" + isesp;
+                    if (mac.contains("2C:F4:32:14:78:76")) isesp = "小方车 | ";
+                    if (mac.contains("02:15:b2:00:01:00")) isesp = "坦克 | ";
+                    last_str = mac + " | " + ip + " | " + isesp;
                     list.add(last_str);
 //                    data = insert(data, last_str);
 //                    Log.e("kuku", "readArp: mac= " + mac + " ; ip= " + ip + " ;flag= " + flag + isesp);
