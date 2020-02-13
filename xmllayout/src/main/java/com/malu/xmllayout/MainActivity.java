@@ -89,10 +89,42 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                Intent intent = new Intent(MainActivity.this, FullscreenActivity.class);
 //                startActivity(intent);
 //                finish();
-                Button bt = findViewById(R.id.button);
-//                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
-//                        ViewGroup.LayoutParams.WRAP_CONTENT,
-//                        ViewGroup.LayoutParams.WRAP_CONTENT);
+                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT);
+
+//                params.setMargins(100,20,10,5);//4个参数按顺序分别是左上右下
+//                Button bt = findViewById(R.id.button);
+//                bt.setLayoutParams(params);
+
+                // UP
+                params.setMargins(22,28,0,0);//4个参数按顺序分别是左上右下
+                Button bt2 = findViewById(R.id.button2);
+                bt2.setLayoutParams(params);
+                bt2.setWidth(300);
+                bt2.setHeight(300);
+
+                // DOWN
+                params.setMargins(22,428,0,0);//4个参数按顺序分别是左上右下
+                Button bt3 = findViewById(R.id.button3);
+                bt3.setLayoutParams(params);
+                bt3.setWidth(300);
+                bt3.setHeight(300);
+
+                // DOWN
+                params.setMargins(422,128,0,0);//4个参数按顺序分别是左上右下
+                Button bt5 = findViewById(R.id.button5);
+                bt5.setLayoutParams(params);
+                bt5.setWidth(300);
+                bt5.setHeight(300);
+
+                // DOWN
+                params.setMargins(722,128,0,0);//4个参数按顺序分别是左上右下
+                Button bt6 = findViewById(R.id.button6);
+                bt6.setLayoutParams(params);
+                bt6.setWidth(300);
+                bt6.setHeight(300);
+
 //                params.gravity = Gravity.CENTER;
 /*                LinearLayout.LayoutParams layoutParams = (.LayoutParams)bt.getLayoutParams();
                 layoutParams.setMargins(100,20,10,5);//4个参数按顺序分别是左上右下

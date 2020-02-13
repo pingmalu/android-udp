@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,10 +8,10 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="120dp"
-        android:layout_height="70dp"
+        android:layout_width="64dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="128dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="232dp"
         android:text="@string/button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -19,9 +19,9 @@
     <Button
         android:id="@+id/button2"
         android:layout_width="120dp"
-        android:layout_height="70dp"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="28dp"
+        android:layout_height="99dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="428dp"
         android:text="@string/button2"
         app:layout_constraintStart_toEndOf="@+id/button3"
         app:layout_constraintTop_toBottomOf="@+id/button" />
@@ -29,41 +29,39 @@
     <Button
         android:id="@+id/button3"
         android:layout_width="120dp"
-        android:layout_height="70dp"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="28dp"
+        android:layout_height="109dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="528dp"
         android:text="@string/button3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button" />
 
     <Button
         android:id="@+id/button4"
-        android:layout_width="120dp"
-        android:layout_height="70dp"
+        android:layout_width="78dp"
+        android:layout_height="38dp"
         android:layout_marginStart="128dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="328dp"
         android:text="@string/button4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button3" />
 
     <Button
         android:id="@+id/button5"
-        android:layout_width="188dp"
-        android:layout_height="98dp"
-        android:layout_marginStart="76dp"
-        android:layout_marginTop="84dp"
-        android:layout_x="122dp"
-        android:layout_y="-24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_marginLeft="220dp"
+        android:layout_marginTop="480dp"
         android:text="@string/button5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button4" />
+        tools:layout_editor_absoluteX="76dp"
+        tools:layout_editor_absoluteY="383dp" />
 
     <Button
         android:id="@+id/button6"
-        android:layout_width="191dp"
-        android:layout_height="99dp"
-        android:layout_marginStart="76dp"
-        android:layout_marginTop="12dp"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_marginStart="305dp"
+        android:layout_marginTop="480dp"
         android:text="@string/button6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button5" />
@@ -72,6 +70,8 @@
         android:id="@+id/switch1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="160dp"
+        android:layout_marginTop="10dp"
         android:onClick="bt"
         android:showText="false"
         android:text="@string/switch1"
@@ -84,7 +84,8 @@
         android:id="@+id/switch2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginLeft="220dp"
+        android:layout_marginTop="10dp"
         android:text="@string/switch2"
         app:layout_constraintStart_toStartOf="@+id/switch1"
         app:layout_constraintTop_toBottomOf="@+id/switch1"
@@ -94,6 +95,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="160dp"
         android:layout_marginTop="92dp"
         android:rotation="90"
         android:text="@string/title_activity_settings"
@@ -104,8 +106,8 @@
         android:id="@+id/button7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/button7"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginStart="300dp"
+        android:layout_marginEnd="10dp"
+        android:text="@string/button7" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
