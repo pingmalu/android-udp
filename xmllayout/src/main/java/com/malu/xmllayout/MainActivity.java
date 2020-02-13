@@ -14,10 +14,13 @@ import android.view.InputDevice;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -75,6 +78,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        // TAB按键
+        Button bt7 = findViewById(R.id.button7);
+        bt7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent intent = new Intent(MainActivity.this, FullscreenActivity.class);
+//                startActivity(intent);
+//                finish();
+                Button bt = findViewById(R.id.button);
+//                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+//                        ViewGroup.LayoutParams.WRAP_CONTENT,
+//                        ViewGroup.LayoutParams.WRAP_CONTENT);
+//                params.gravity = Gravity.CENTER;
+/*                LinearLayout.LayoutParams layoutParams = (.LayoutParams)bt.getLayoutParams();
+                layoutParams.setMargins(100,20,10,5);//4个参数按顺序分别是左上右下
+                bt.setLayoutParams(layoutParams);*/
+//                FrameLayout frameLayout = new FrameLayout(this);
+//                bt.setPadding(0, 0, 0, 0);
+//                bt.setAlpha(0);
+//                bt.();
+
             }
         });
 
