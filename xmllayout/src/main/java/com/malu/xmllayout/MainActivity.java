@@ -82,6 +82,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
+        final SharedPreferences sp2 = getSharedPreferences("malu_upui", MODE_PRIVATE);
+        upui = sp2.getBoolean("malu_upui", false);
+        if (upui) {
+            setBtnView(0);
+        } else {
+            setBtnView(900);
+        }
+
         // TAB按键
         Button bt7 = findViewById(R.id.button7);
         bt7.setOnClickListener(new View.OnClickListener() {
@@ -90,82 +98,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                Intent intent = new Intent(MainActivity.this, FullscreenActivity.class);
 //                startActivity(intent);
 //                finish();
-                FrameLayout.LayoutParams params_up = new FrameLayout.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT);
-                FrameLayout.LayoutParams params_down = new FrameLayout.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT);
-                FrameLayout.LayoutParams params_a = new FrameLayout.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT);
-                FrameLayout.LayoutParams params_b = new FrameLayout.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT);
-//                params.setMargins(100,20,10,5);//4个参数按顺序分别是左上右下
-//                Button bt = findViewById(R.id.button);
-//                bt.setLayoutParams(params);
 
-                int move_int = 900;
-                upui = upui ? false : true;
+                upui = !upui;
                 if (upui) {
-                    // UP
-                    params_up.setMargins(20, 100, 0, 0);//4个参数按顺序分别是左上右下
-                    Button bt2 = findViewById(R.id.button2);
-                    bt2.setLayoutParams(params_up);
-                    bt2.setWidth(300);
-                    bt2.setHeight(300);
-
-                    // DOWN
-                    params_down.setMargins(20, 420, 0, 0);//4个参数按顺序分别是左上右下
-                    Button bt3 = findViewById(R.id.button3);
-                    bt3.setLayoutParams(params_down);
-                    bt3.setWidth(300);
-                    bt3.setHeight(300);
-
-                    // A
-                    params_a.setMargins(450, 250, 0, 0);//4个参数按顺序分别是左上右下
-                    Button bt5 = findViewById(R.id.button5);
-                    bt5.setLayoutParams(params_a);
-                    bt5.setWidth(300);
-                    bt5.setHeight(300);
-
-                    // B
-                    params_b.setMargins(750, 250, 0, 0);//4个参数按顺序分别是左上右下
-                    Button bt6 = findViewById(R.id.button6);
-                    bt6.setLayoutParams(params_b);
-                    bt6.setWidth(300);
-                    bt6.setHeight(300);
+                    setBtnView(0);
                 } else {
-                    // UP
-                    params_up.setMargins(20, 100+move_int, 0, 0);//4个参数按顺序分别是左上右下
-                    Button bt2 = findViewById(R.id.button2);
-                    bt2.setLayoutParams(params_up);
-                    bt2.setWidth(300);
-                    bt2.setHeight(300);
-
-                    // DOWN
-                    params_down.setMargins(20, 420+move_int, 0, 0);//4个参数按顺序分别是左上右下
-                    Button bt3 = findViewById(R.id.button3);
-                    bt3.setLayoutParams(params_down);
-                    bt3.setWidth(300);
-                    bt3.setHeight(300);
-
-                    // A
-                    params_a.setMargins(450, 250+move_int, 0, 0);//4个参数按顺序分别是左上右下
-                    Button bt5 = findViewById(R.id.button5);
-                    bt5.setLayoutParams(params_a);
-                    bt5.setWidth(300);
-                    bt5.setHeight(300);
-
-                    // B
-                    params_b.setMargins(750, 250+move_int, 0, 0);//4个参数按顺序分别是左上右下
-                    Button bt6 = findViewById(R.id.button6);
-                    bt6.setLayoutParams(params_b);
-                    bt6.setWidth(300);
-                    bt6.setHeight(300);
+                    setBtnView(900);
                 }
-
+                SharedPreferences.Editor editor = sp2.edit();
+                editor.putBoolean("malu_upui", upui);
+                editor.apply();
 //                params.gravity = Gravity.CENTER;
 /*                LinearLayout.LayoutParams layoutParams = (.LayoutParams)bt.getLayoutParams();
                 layoutParams.setMargins(100,20,10,5);//4个参数按顺序分别是左上右下
@@ -178,6 +120,48 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
+    }
+
+    public void setBtnView(int move_int) {
+        FrameLayout.LayoutParams params_up = new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        FrameLayout.LayoutParams params_down = new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        FrameLayout.LayoutParams params_a = new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        FrameLayout.LayoutParams params_b = new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        // UP
+        params_up.setMargins(20, 100 + move_int, 0, 0);//4个参数按顺序分别是左上右下
+        Button bt2 = findViewById(R.id.button2);
+        bt2.setLayoutParams(params_up);
+        bt2.setWidth(300);
+        bt2.setHeight(300);
+
+        // DOWN
+        params_down.setMargins(20, 420 + move_int, 0, 0);//4个参数按顺序分别是左上右下
+        Button bt3 = findViewById(R.id.button3);
+        bt3.setLayoutParams(params_down);
+        bt3.setWidth(300);
+        bt3.setHeight(300);
+
+        // A
+        params_a.setMargins(450, 250 + move_int, 0, 0);//4个参数按顺序分别是左上右下
+        Button bt5 = findViewById(R.id.button5);
+        bt5.setLayoutParams(params_a);
+        bt5.setWidth(300);
+        bt5.setHeight(300);
+
+        // B
+        params_b.setMargins(750, 250 + move_int, 0, 0);//4个参数按顺序分别是左上右下
+        Button bt6 = findViewById(R.id.button6);
+        bt6.setLayoutParams(params_b);
+        bt6.setWidth(300);
+        bt6.setHeight(300);
     }
 
     @SuppressLint("ClickableViewAccessibility")
