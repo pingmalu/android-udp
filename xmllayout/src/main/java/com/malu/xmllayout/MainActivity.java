@@ -2,12 +2,16 @@ package com.malu.xmllayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.accessibilityservice.AccessibilityService;
 import android.annotation.SuppressLint;
+import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.telecom.Call;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.InputDevice;
@@ -15,6 +19,7 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
@@ -119,6 +124,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         });
+
+
+/*        DisplayMetrics metrics = new DisplayMetrics();
+        Context context = null;
+        WindowManager manager = (WindowManager) context.getSystemService(Service.WINDOW_SERVICE);
+        if (manager != null) {
+            manager.getDefaultDisplay().getMetrics(metrics);
+        }
+
+        // 屏幕的逻辑密度，是密度无关像素（dip）的缩放因子，160dpi是系统屏幕显示的基线，1dip = 1px， 所以，在160dpi的屏幕上，density = 1， 而在一个120dpi屏幕上 density = 0.75。
+        float density = metrics.density;
+
+        //  屏幕的绝对宽度（像素）
+        int screenWidth = metrics.widthPixels;
+
+        // 屏幕的绝对高度（像素）
+        int screenHeight = metrics.heightPixels;
+
+        //  屏幕上字体显示的缩放因子，一般与density值相同，除非在程序运行中，用户根据喜好调整了显示字体的大小时，会有微小的增加。
+        float scaledDensity = metrics.scaledDensity;
+
+        // X轴方向上屏幕每英寸的物理像素数。
+        float xdpi = metrics.xdpi;
+
+        // Y轴方向上屏幕每英寸的物理像素数。
+        float ydpi = metrics.ydpi;
+
+        // 每英寸的像素点数，屏幕密度的另一种表示。densityDpi = density * 160.
+        float desityDpi = metrics.densityDpi;
+
+        Log.i("kuku", String.valueOf(density));*/
 
     }
 
