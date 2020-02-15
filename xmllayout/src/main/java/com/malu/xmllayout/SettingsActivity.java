@@ -290,8 +290,9 @@ public class SettingsActivity extends AppCompatActivity {
                     if (mac.contains("00:00:00:00:00:00")) continue;
                     //执行数据添加
                     String isesp = "";
-                    if (mac.contains("2C:F4:32:14:78:76")) isesp = "小方车 | ";
+                    if (mac.contains("2c:f4:32:14:78:76")) isesp = "小方车 | ";
                     if (mac.contains("02:15:b2:00:01:00")) isesp = "坦克 | ";
+                    if (mac.contains("bc:dd:c2:5d:1c:b7")) isesp = "坦克 | ";
                     last_str = mac + " | " + ip + " | " + isesp;
                     list.add(last_str);
 //                    data = insert(data, last_str);

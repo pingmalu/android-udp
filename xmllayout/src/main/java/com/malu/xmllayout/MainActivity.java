@@ -171,6 +171,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         FrameLayout.LayoutParams params_b = new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        FrameLayout.LayoutParams params_left = new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        FrameLayout.LayoutParams params_right = new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
         // UP
         params_up.setMargins(20, 100 + move_int, 0, 0);//4个参数按顺序分别是左上右下
         Button bt2 = findViewById(R.id.button2);
@@ -198,6 +205,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bt6.setLayoutParams(params_b);
         bt6.setWidth(300);
         bt6.setHeight(300);
+
+        // LEFT
+        params_left.setMargins(450, 250 + move_int, 0, 0);//4个参数按顺序分别是左上右下
+        Button bt = findViewById(R.id.button);
+        bt.setLayoutParams(params_left);
+        bt.setWidth(300);
+        bt.setHeight(300);
+
+        // RIGHT
+        params_right.setMargins(750, 250 + move_int, 0, 0);//4个参数按顺序分别是左上右下
+        Button bt4 = findViewById(R.id.button4);
+        bt4.setLayoutParams(params_right);
+        bt4.setWidth(300);
+        bt4.setHeight(300);
     }
 
     @SuppressLint("ClickableViewAccessibility")
